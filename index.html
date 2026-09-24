@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FBFBF8">
+<meta name="robots" content="noindex, nofollow">
+<title>For Sunny</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBFBF8;
+    --grid:#E6EBF5;
+    --ink:#2340A8;
+    --ink-soft:#7186D2;
+    --sun:#F2B632;
+    --sun-soft:#FCEFC7;
+    --text:#1B2140;
+    --muted:#5A6284;
+    --red:#B8343A;
+    --amber:#A86A12;
+    --green:#2F7D4F;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:64px}
+  body{
+    margin:0;color:var(--text);
+    font:17px/1.55 "Karla",system-ui,sans-serif;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:28px 28px;
+  }
+  :focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:4px}
+  button,input,select,textarea{font:inherit;color:inherit}
+  .hand{font-family:"Kalam","Comic Sans MS",cursive}
+
+  /* Nav */
+  nav{
+    position:sticky;top:0;z-index:10;background:rgba(251,251,248,.94);
+    backdrop-filter:blur(6px);border-bottom:2px solid var(--ink);
+  }
+  nav ul{list-style:none;margin:0 auto;padding:10px 16px;display:flex;gap:6px;overflow-x:auto;max-width:880px;scrollbar-width:none}
+  nav ul::-webkit-scrollbar{display:none}
+  nav a{
+    display:block;white-space:nowrap;text-decoration:none;color:var(--ink);font-weight:700;font-size:.95rem;
+    padding:6px 12px;border-radius:999px;border:2px solid transparent
+  }
+  nav a:hover{border-color:var(--ink)}
+
+  main{max-width:880px;margin:0 auto;padding:0 18px 90px}
+  section{padding:48px 0 12px}
+  h2{font:700 2rem/1.2 "Kalam",cursive;color:var(--ink);margin:0 0 6px}
+  h3{font:700 1.3rem/1.3 "Kalam",cursive;color:var(--ink);margin:0 0 8px}
+  .lede{color:var(--muted);max-width:60ch;margin:0 0 24px}
+  .card{background:#fff;border:2px solid var(--ink);border-radius:6px 18px 6px 18px;padding:20px;margin-bottom:18px}
+
+  /* Welcome */
+  .welcome{padding-top:36px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center}
+  .sun{width:110px;height:110px}
+  .sun .rays{transform-origin:60px 60px;animation:spin 60s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .welcome h1{font:700 clamp(2.6rem,9vw,4rem)/1 "Kalam",cursive;color:var(--ink);margin:0 0 8px}
+  .welcome p{margin:0;max-width:52ch}
+  .letter{grid-column:1/-1;margin-top:8px}
+  .letter p{font:400 1.25rem/1.6 "Kalam",cursive;margin:0 0 10px}
+  .encourage{grid-column:1/-1;background:var(--sun-soft);border-radius:14px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+  .encourage q{font:700 1.3rem/1.4 "Kalam",cursive;color:var(--text);quotes:none;flex:1 1 240px}
+  .btn{
+    background:var(--ink);color:#fff;border:2px solid var(--ink);border-radius:10px;
+    padding:9px 16px;font-weight:700;cursor:pointer;min-height:44px
+  }
+  .btn.ghost{background:#fff;color:var(--ink)}
+  .btn.small{padding:5px 12px;min-height:36px;font-size:.92rem}
+  .btn.text{background:none;border-color:transparent;color:var(--muted);text-decoration:underline;padding:4px 6px;min-height:auto}
+
+  /* Forms */
+  label{display:block;font-weight:700;font-size:.95rem;margin-bottom:6px}
+  input[type=text],input[type=date],input[type=number],textarea,select{
+    width:100%;background:#fff;border:2px solid var(--ink-soft);border-radius:10px;padding:10px 12px;min-height:44px
+  }
+  input:focus,textarea:focus,select:focus{border-color:var(--ink);outline:none;box-shadow:0 0 0 3px var(--grid)}
+  textarea{min-height:84px;resize:vertical}
+  .row{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap}
+  .row > .grow{flex:1 1 200px}
+  .stack > * + *{margin-top:12px}
+
+  /* Mood */
+  .moods{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+  .moods button{
+    border:2px solid var(--ink);background:#fff;color:var(--ink);border-radius:999px;padding:7px 14px;cursor:pointer;font-weight:500;min-height:40px
+  }
+  .moods button[aria-pressed="true"]{background:var(--ink);color:#fff}
+  .entries{list-style:none;padding:0;margin:14px 0 0}
+  .entries li{padding:10px 0;border-top:1px dashed var(--ink-soft);display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+  .entries .when{font-size:.85rem;color:var(--muted)}
+  .entries .what{font-weight:700;color:var(--ink)}
+  .entries .del{background:none;border:0;color:var(--muted);cursor:pointer;font-size:1.1rem;padding:2px 6px;min-width:32px;min-height:32px}
+  .empty{color:var(--muted);font-style:italic;margin:10px 0 0}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .goal{display:flex;align-items:center;gap:10px}
+  .goal input{width:22px;height:22px;accent-color:var(--ink)}
+  .goal.done span{text-decoration:line-through;color:var(--muted)}
+
+  /* Timeline */
+  .timeline{list-style:none;margin:20px 0 0;padding:0 0 0 22px;border-left:3px solid var(--sun);position:relative}
+  .timeline li{position:relative;padding:0 0 22px 14px}
+  .timeline li::before{content:"";position:absolute;left:-34px;top:4px;width:18px;height:18px;border-radius:50%;background:var(--sun);border:3px solid var(--paper)}
+  .timeline .date{font-size:.88rem;color:var(--muted)}
+  .timeline .moment{font:700 1.2rem/1.35 "Kalam",cursive;color:var(--text)}
+  .timeline .del{background:none;border:0;color:var(--muted);cursor:pointer;text-decoration:underline;font-size:.85rem;padding:0}
+
+  /* Formulas */
+  .hero-eq{font:700 clamp(1.5rem,5.5vw,2.3rem)/1.3 "Kalam",cursive;color:var(--ink);margin:0 0 18px}
+  .people{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+  .person{
+    color:var(--ink);background:#fff;border:2px solid var(--ink);border-radius:999px;
+    padding:7px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;font-weight:500;min-height:44px
+  }
+  .person .tag{font:700 1.1rem "Kalam",cursive}
+  .person[aria-pressed="true"]{background:var(--ink);color:#fff}
+  .equation{font:700 clamp(1.5rem,5vw,2.1rem)/1.3 "Kalam",cursive;color:var(--ink);min-height:3rem;margin:0 0 6px;border-bottom:2px dashed var(--ink-soft);padding-bottom:6px}
+  .equation .ph{color:var(--ink-soft);font-weight:400}
+  .result{margin-top:16px}
+  .mood-out{font:700 clamp(1.8rem,6vw,2.6rem)/1.15 "Kalam",cursive;color:var(--ink);margin:0 0 6px}
+  .explain{color:var(--muted);margin:0 0 14px}
+  .gauge{height:18px;border:2px solid var(--ink);border-radius:10px;overflow:hidden;background:repeating-linear-gradient(45deg,#fff 0 6px,var(--grid) 6px 8px)}
+  .gauge span{display:block;height:100%;background:var(--sun);width:0;transition:width .6s ease;border-right:2px solid var(--ink)}
+  .gauge-label{display:flex;justify-content:space-between;font-size:.88rem;color:var(--muted);margin-top:4px}
+  .cycle{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font:700 1.2rem "Kalam",cursive;margin:6px 0 12px}
+  .cycle .step{padding:2px 10px;border-radius:999px;color:var(--ink-soft);transition:all .3s}
+  .cycle .step.on{background:var(--ink);color:#fff}
+  .cycle .arr{color:var(--ink-soft)}
+  .known{list-style:none;padding:0;margin:0;display:grid;gap:4px}
+  .known button{font:400 1.12rem "Kalam",cursive;color:var(--ink);background:none;border:0;padding:4px 0;cursor:pointer;text-align:left;min-height:36px}
+  .known button:hover{text-decoration:underline}
+  details summary{cursor:pointer;font-weight:700;color:var(--ink);padding:6px 0;min-height:36px}
+  .edit-row{display:grid;grid-template-columns:1fr 2fr 90px;gap:8px;align-items:center;padding:8px 0;border-top:1px dashed var(--ink-soft)}
+  .edit-row .f{font:700 1.1rem "Kalam",cursive;color:var(--ink)}
+
+  /* Agreements */
+  .summary{display:flex;flex-wrap:wrap;gap:26px;margin:0 0 22px}
+  .summary div{font-size:.95rem;color:var(--muted)}
+  .summary strong{display:block;font:700 1.9rem/1 "Kalam",cursive;color:var(--text)}
+  .rule{background:#fff;border-left:5px solid var(--ink);padding:14px 16px;margin-bottom:12px;border-radius:0 10px 10px 0}
+  .rule[data-level="100"]{border-left-color:var(--red)}
+  .rule[data-level="50"]{border-left-color:var(--amber)}
+  .rule[data-level="0"]{border-left-color:var(--green)}
+  .rule-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .rule-name{font-weight:700}
+  .rule-status{font-weight:700;font-size:.95rem}
+  .rule[data-level="100"] .rule-status{color:var(--red)}
+  .rule[data-level="50"] .rule-status{color:var(--amber)}
+  .rule[data-level="0"] .rule-status{color:var(--green)}
+  .suggest{margin-top:12px;padding-top:12px;border-top:1px dashed var(--ink-soft)}
+  .key{display:flex;flex-wrap:wrap;gap:16px;font-size:.92rem;color:var(--muted);margin:0 0 18px}
+  .key span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  .key .k100::before{background:var(--red)} .key .k50::before{background:var(--amber)} .key .k0::before{background:var(--green)}
+
+  .toast{
+    position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;
+    background:var(--text);color:#fff;padding:10px 18px;border-radius:10px;font-weight:500;
+    transition:all .25s;pointer-events:none;z-index:20;max-width:90vw;text-align:center
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .privacy{font-size:.92rem;color:var(--muted);margin-top:10px}
+  footer{text-align:center;color:var(--muted);font:400 1.1rem "Kalam",cursive;padding:30px 0 10px}
+
+  @media (max-width:640px){
+    .two{grid-template-columns:1fr}
+    .welcome{grid-template-columns:1fr;text-align:left}
+    .sun{width:80px;height:80px}
+    .edit-row{grid-template-columns:1fr 80px}
+    .edit-row .f{grid-column:1/-1}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav aria-label="Sections">
+  <ul>
+    <li><a href="#welcome">Welcome</a></li>
+    <li><a href="#me">Finding myself</a></li>
+    <li><a href="#journey">My journey</a></li>
+    <li><a href="#formulas">Formulas</a></li>
+    <li><a href="#agreements">Our agreements</a></li>
+    <li><a href="#backup">Backup</a></li>
+  </ul>
+</nav>
+
+<main>
+  <!-- Welcome -->
+  <section id="welcome" class="welcome" aria-labelledby="w-title">
+    <svg class="sun" viewBox="0 0 120 120" aria-hidden="true">
+      <g class="rays" stroke="#2340A8" stroke-width="4" stroke-linecap="round">
+        <line x1="60" y1="6" x2="60" y2="22"/><line x1="60" y1="98" x2="60" y2="114"/>
+        <line x1="6" y1="60" x2="22" y2="60"/><line x1="98" y1="60" x2="114" y2="60"/>
+        <line x1="22" y1="22" x2="33" y2="33"/><line x1="87" y1="87" x2="98" y2="98"/>
+        <line x1="22" y1="98" x2="33" y2="87"/><line x1="87" y1="33" x2="98" y2="22"/>
+      </g>
+      <circle cx="60" cy="60" r="28" fill="#F2B632" stroke="#2340A8" stroke-width="4"/>
+    </svg>
+    <div>
+      <h1 id="w-title">For Sunny</h1>
+      <p>I made this for you.</p>
+    </div>
+
+    <div class="letter card">
+      <p id="letter-text"></p>
+      <p id="letter-sign" style="text-align:right;margin:0"></p>
+    </div>
+
+    <div class="encourage" aria-live="polite">
+      <q id="encourage-text"></q>
+      <button class="btn ghost small" id="encourage-next">Show another</button>
+    </div>
+  </section>
+
+  <!-- Finding myself -->
+  <section id="me" aria-labelledby="me-title">
+    <h2 id="me-title">Finding myself</h2>
+    <p class="lede">This is the S² part, and it's all yours. Everything you write here stays on your device.</p>
+
+    <div class="card">
+      <h3>How are you feeling today?</h3>
+      <div class="moods" id="mood-picker" role="group" aria-label="Pick a mood"></div>
+      <label for="mood-note">Anything you want to add? (optional)</label>
+      <textarea id="mood-note" placeholder="A few words about today…"></textarea>
+      <div style="margin-top:12px"><button class="btn" id="mood-save">Save check-in</button></div>
+      <ul class="entries" id="mood-list"></ul>
+    </div>
+
+    <div class="two">
+      <div class="card">
+        <h3>Things that make me feel like me</h3>
+        <div class="row">
+          <div class="grow">
+            <label for="thing-in" class="sr">Add a thing</label>
+            <input type="text" id="thing-in" placeholder="Morning walks, a certain song…">
+          </div>
+          <button class="btn" id="thing-add">Add</button>
+        </div>
+        <ul class="entries" id="thing-list"></ul>
+      </div>
+
+      <div class="card">
+        <h3>Small goals</h3>
+        <div class="row">
+          <div class="grow">
+            <label for="goal-in">Add a goal</label>
+            <input type="text" id="goal-in" placeholder="Try something new on my own…">
+          </div>
+          <button class="btn" id="goal-add">Add</button>
+        </div>
+        <ul class="entries" id="goal-list"></ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>What I'm learning about myself</h3>
+      <label for="learn-in">Write it down</label>
+      <textarea id="learn-in" placeholder="I noticed that I…"></textarea>
+      <div style="margin-top:12px"><button class="btn" id="learn-add">Save note</button></div>
+      <ul class="entries" id="learn-list"></ul>
+    </div>
+  </section>
+
+  <!-- Journey -->
+  <section id="journey" aria-labelledby="j-title">
+    <h2 id="j-title">My journey</h2>
+    <p class="lede">Mark the moments that matter, big or small. There's no deadline on any of this.</p>
+    <div class="card">
+      <div class="row">
+        <div style="flex:0 1 180px">
+          <label for="j-date">Date</label>
+          <input type="date" id="j-date">
+        </div>
+        <div class="grow">
+          <label for="j-text">Moment</label>
+          <input type="text" id="j-text" placeholder="The day I…">
+        </div>
+        <button class="btn" id="j-add">Add moment</button>
+      </div>
+      <ol class="timeline" id="timeline"></ol>
+    </div>
+  </section>
+
+  <!-- Formulas -->
+  <section id="formulas" aria-labelledby="f-title">
+    <h2 id="f-title">Happiness formulas</h2>
+    <p class="lede">This is how I understand it, but you get the final say. Tap people to build an equation, and change any result so it matches how you feel.</p>
+    <p class="hero-eq">H<sub>max</sub> = (Sunny + S²) + Y = 100%</p>
+
+    <div class="card">
+      <div class="people" id="people" role="group" aria-label="People in the equation"></div>
+      <p class="equation" id="equation" aria-live="polite"></p>
+      <button class="btn text" id="eq-clear">Clear equation</button>
+      <div class="result" id="result" aria-live="polite"></div>
+    </div>
+
+    <div class="two">
+      <div class="card">
+        <h3>Formulas so far</h3>
+        <ul class="known" id="known"></ul>
+      </div>
+      <div class="card">
+        <h3>Make it yours</h3>
+        <p class="explain" style="margin-bottom:6px">Change the words or numbers. Leave the % empty if it doesn't need one.</p>
+        <details>
+          <summary>Edit the results</summary>
+          <div id="edit-formulas"></div>
+          <button class="btn text" id="formula-reset" style="margin-top:8px">Put back the original results</button>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Agreements -->
+  <section id="agreements" aria-labelledby="a-title">
+    <h2 id="a-title">Our agreements</h2>
+    <p class="lede">These are here to protect your space while you find yourself, not to box you in. If one doesn't feel right, suggest a change and send it to me.</p>
+    <div class="key"><span class="k100">Not allowed (100%)</span><span class="k50">Partly allowed (50%)</span><span class="k0">Allowed (0%)</span></div>
+    <div class="summary" id="summary"></div>
+    <div class="two">
+      <div>
+        <h3>Physical</h3>
+        <div id="rules-P"></div>
+      </div>
+      <div>
+        <h3>Non-physical</h3>
+        <div id="rules-N"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Backup -->
+  <section id="backup" aria-labelledby="b-title">
+    <h2 id="b-title">Backup</h2>
+    <p class="lede">Your entries are saved in this browser on this device. Download a backup now and then, so nothing is lost if you change phones or clear your browser.</p>
+    <div class="card">
+      <div class="row">
+        <button class="btn" id="b-download">Download backup</button>
+        <button class="btn ghost" id="b-load">Load a backup</button>
+        <input type="file" id="b-file" accept="application/json,.json" hidden>
+      </div>
+      <p class="privacy" id="storage-status"></p>
+      <div style="margin-top:14px"><button class="btn text" id="b-clear">Delete all my entries</button></div>
+    </div>
+  </section>
+
+  <footer>Made with care, for you.</footer>
+</main>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* =========================================================
+   EDIT THESE to personalise the page
+   ========================================================= */
+const CONFIG = {
+  from: "",   // your name, e.g. "R" — leave empty to not sign it
+  letter: "I wanted to give you a little space that's just yours. Somewhere to check in with yourself, keep track of the moments that matter, and see where things stand between us. Take your time with it. You finding yourself matters to me.",
+  people: { S:"Sunny", S2:"Sunny finding herself", R:"Raviin", E:"Egor", O:"Someone else" }
+};
+
+const ENCOURAGEMENTS = [
+  "You don't have to have it all figured out today.",
+  "Finding yourself isn't a race. Go at your own pace.",
+  "It's okay to feel more than one thing at once.",
+  "You're allowed to change your mind as you learn more about yourself.",
+  "Small steps still move you forward.",
+  "Being unsure is part of the process, not a failure.",
+  "Your feelings are valid, even the confusing ones.",
+  "Choosing yourself is never selfish.",
+  "You're doing better than you think you are.",
+  "Rest counts as progress too."
+];
+
+const RULES = [
+  {id:"ns",  g:"P", name:"No sex",                                 level:100},
+  {id:"nso", g:"P", name:"No staying over",                        level:100},
+  {id:"kt",  g:"P", name:"Kissing and touching",                   level:50},
+  {id:"sw",  g:"P", name:"Showering together",                     level:100},
+  {id:"co",  g:"P", name:"Coming over",                            level:50},
+  {id:"tc",  g:"N", name:"Texting and calling",                    level:50},
+  {id:"bf",  g:"N", name:"Breakfast",                              level:50},
+  {id:"care",g:"N", name:"Taking care of you when ill or injured", level:0},
+  {id:"rt",  g:"N", name:"Road trips",                             level:50}
+];
+
+const DEFAULT_FORMULAS = {
+  "S+E":    {mood:"Happy", pct:""},
+  "S+R":    {mood:"Unsure → Happy → Sad → Confused", pct:""},
+  "S+R+E":  {mood:"Confused", pct:""},
+  "S+S2":   {mood:"Happy max", pct:75},
+  "S+S2+Y": {mood:"Happy max", pct:100}
+};
+
+/* ---------- Storage (saves on her device) ---------- */
+const KEY = "for-sunny-v1";
+let storageOK = true;
+const memory = {};
+function load(){
+  const base = {moods:[], things:[], goals:[], learnings:[], journey:[], formulas:JSON.parse(JSON.stringify(DEFAULT_FORMULAS))};
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(raw){ const d = JSON.parse(raw); return {...base, ...d, formulas:{...base.formulas, ...(d.formulas||{})}}; }
+  }catch(e){ storageOK = false; }
+  return memory.data || base;
+}
+function save(){
+  memory.data = data;
+  try{ localStorage.setItem(KEY, JSON.stringify(data)); }catch(e){ storageOK = false; }
+  updateStorageStatus();
+}
+let data = load();
+
+/* ---------- Helpers ---------- */
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const today = () => new Date().toISOString().slice(0,10);
+const fmtDate = iso => { try{ return new Date(iso+"T12:00:00").toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"}); }catch(e){ return iso; } };
+let toastTimer;
+function toast(msg){ const t=$("toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove("show"),2400); }
+
+/* ---------- Welcome ---------- */
+$("letter-text").textContent = CONFIG.letter;
+$("letter-sign").textContent = CONFIG.from ? "— " + CONFIG.from : "";
+let encIdx = Math.floor(Math.random()*ENCOURAGEMENTS.length);
+function showEnc(){ $("encourage-text").textContent = ENCOURAGEMENTS[encIdx]; }
+$("encourage-next").onclick = ()=>{ encIdx = (encIdx + 1 + Math.floor(Math.random()*(ENCOURAGEMENTS.length-1))) % ENCOURAGEMENTS.length; showEnc(); };
+showEnc();
+
+/* ---------- Mood check-in ---------- */
+const MOODS = ["Happy","Calm","Hopeful","Unsure","Confused","Sad","Tired"];
+let pickedMood = null;
+function renderMoodPicker(){
+  $("mood-picker").innerHTML = MOODS.map(m=>`<button data-m="${m}" aria-pressed="${pickedMood===m}">${m}</button>`).join("");
+  $("mood-picker").querySelectorAll("button").forEach(b=>b.onclick=()=>{ pickedMood = pickedMood===b.dataset.m?null:b.dataset.m; renderMoodPicker(); });
+}
+function renderMoods(){
+  const list = $("mood-list");
+  if(!data.moods.length){ list.innerHTML = `<li style="border:0"><p class="empty">Your check-ins will show here.</p></li>`; return; }
+  list.innerHTML = data.moods.slice().reverse().slice(0,10).map((m)=>{
+    const i = data.moods.indexOf(m);
+    return `<li><div><div class="when">${fmtDate(m.d)}</div><div class="what">${esc(m.mood)}</div>${m.note?`<div>${esc(m.note)}</div>`:""}</div>
+      <button class="del" data-i="${i}" aria-label="Delete check-in">×</button></li>`;
+  }).join("");
+  list.querySelectorAll(".del").forEach(b=>b.onclick=()=>{ data.moods.splice(+b.dataset.i,1); save(); renderMoods(); });
+}
+$("mood-save").onclick = ()=>{
+  if(!pickedMood){ toast("Pick a mood first"); return; }
+  data.moods.push({d:today(), mood:pickedMood, note:$("mood-note").value.trim()});
+  pickedMood=null; $("mood-note").value=""; save(); renderMoodPicker(); renderMoods(); toast("Check-in saved");
+};
+
+/* ---------- Things / goals / learnings ---------- */
+function renderThings(){
+  const list=$("thing-list");
+  if(!data.things.length){ list.innerHTML=`<li style="border:0"><p class="empty">Nothing yet. What makes you feel most like yourself?</p></li>`; return; }
+  list.innerHTML = data.things.map((t,i)=>`<li><span>${esc(t)}</span><button class="del" data-i="${i}" aria-label="Delete">×</button></li>`).join("");
+  list.querySelectorAll(".del").forEach(b=>b.onclick=()=>{ data.things.splice(+b.dataset.i,1); save(); renderThings(); });
+}
+function addThing(){ const v=$("thing-in").value.trim(); if(!v) return; data.things.push(v); $("thing-in").value=""; save(); renderThings(); }
+$("thing-add").onclick=addThing; $("thing-in").onkeydown=e=>{ if(e.key==="Enter") addThing(); };
+
+function renderGoals(){
+  const list=$("goal-list");
+  if(!data.goals.length){ list.innerHTML=`<li style="border:0"><p class="empty">Add something small you'd like to do for yourself.</p></li>`; return; }
+  list.innerHTML = data.goals.map((g,i)=>`<li><label class="goal ${g.done?"done":""}" style="font-weight:400;margin:0">
+      <input type="checkbox" data-i="${i}" ${g.done?"checked":""}><span>${esc(g.t)}</span></label>
+      <button class="del" data-d="${i}" aria-label="Delete goal">×</button></li>`).join("");
+  list.querySelectorAll("input").forEach(c=>c.onchange=()=>{ data.goals[+c.dataset.i].done=c.checked; save(); renderGoals(); if(c.checked) toast("Nice one"); });
+  list.querySelectorAll(".del").forEach(b=>b.onclick=()=>{ data.goals.splice(+b.dataset.d,1); save(); renderGoals(); });
+}
+function addGoal(){ const v=$("goal-in").value.trim(); if(!v) return; data.goals.push({t:v,done:false}); $("goal-in").value=""; save(); renderGoals(); }
+$("goal-add").onclick=addGoal; $("goal-in").onkeydown=e=>{ if(e.key==="Enter") addGoal(); };
+
+function renderLearnings(){
+  const list=$("learn-list");
+  if(!data.learnings.length){ list.innerHTML=`<li style="border:0"><p class="empty">Your notes will show here.</p></li>`; return; }
+  list.innerHTML = data.learnings.slice().reverse().map(l=>{
+    const i=data.learnings.indexOf(l);
+    return `<li><div><div class="when">${fmtDate(l.d)}</div><div>${esc(l.t)}</div></div><button class="del" data-i="${i}" aria-label="Delete note">×</button></li>`;
+  }).join("");
+  list.querySelectorAll(".del").forEach(b=>b.onclick=()=>{ data.learnings.splice(+b.dataset.i,1); save(); renderLearnings(); });
+}
+$("learn-add").onclick=()=>{ const v=$("learn-in").value.trim(); if(!v) return; data.learnings.push({d:today(),t:v}); $("learn-in").value=""; save(); renderLearnings(); toast("Note saved"); };
+
+/* ---------- Journey ---------- */
+$("j-date").value = today();
+function renderJourney(){
+  const tl=$("timeline");
+  if(!data.journey.length){ tl.innerHTML=`<li><div class="moment" style="color:var(--muted)">Your first moment goes here.</div></li>`; return; }
+  const sorted = data.journey.map((j,i)=>({...j,i})).sort((a,b)=>a.d.localeCompare(b.d));
+  tl.innerHTML = sorted.map(j=>`<li><div class="date">${fmtDate(j.d)}</div><div class="moment">${esc(j.t)}</div>
+     <button class="del" data-i="${j.i}">Remove</button></li>`).join("");
+  tl.querySelectorAll(".del").forEach(b=>b.onclick=()=>{ data.journey.splice(+b.dataset.i,1); save(); renderJourney(); });
+}
+$("j-add").onclick=()=>{
+  const t=$("j-text").value.trim(), d=$("j-date").value||today();
+  if(!t){ toast("Write the moment first"); return; }
+  data.journey.push({d,t}); $("j-text").value=""; save(); renderJourney(); toast("Moment added");
+};
+
+/* ---------- Formulas ---------- */
+const PEOPLE = [
+  {id:"S", tag:"S"}, {id:"S2", tag:"S²"}, {id:"R", tag:"R"}, {id:"E", tag:"E"}, {id:"O", tag:"Y?"}
+];
+const ORDER = ["S","S2","R","E","O"];
+const nameOf = id => CONFIG.people[id];
+let selected = new Set();
+let cycleTimer = null;
+
+function formulaKey(){
+  const ids = ORDER.filter(id=>selected.has(id));
+  const k = ids.join("+");
+  if(ids.length===3 && ids[0]==="S" && ids[1]==="S2") return {key:"S+S2+Y", y:ids[2]};
+  return {key:k};
+}
+const LABELS = {
+  "S+E":"S + E", "S+R":"S + R", "S+R+E":"S + R + E", "S+S2":"S + S²", "S+S2+Y":"(S + S²) + Y"
+};
+const SETS = {"S+E":["S","E"], "S+R":["S","R"], "S+R+E":["S","R","E"], "S+S2":["S","S2"], "S+S2+Y":["S","S2","R"]};
+
+function renderPeople(){
+  $("people").innerHTML = PEOPLE.map(p=>`<button class="person" data-id="${p.id}" aria-pressed="${selected.has(p.id)}"><span class="tag">${p.tag}</span>${esc(nameOf(p.id))}</button>`).join("");
+  $("people").querySelectorAll(".person").forEach(b=>b.onclick=()=>{ const id=b.dataset.id; selected.has(id)?selected.delete(id):selected.add(id); renderBuilder(); });
+}
+function renderEquation(){
+  const ids = ORDER.filter(id=>selected.has(id));
+  if(!ids.length){ $("equation").innerHTML='<span class="ph">Tap someone to start…</span>'; return; }
+  const tags = ids.map(id=>PEOPLE.find(p=>p.id===id).tag);
+  $("equation").textContent = (ids.length===3 && ids[0]==="S" && ids[1]==="S2") ? `(${tags[0]} + ${tags[1]}) + ${tags[2]}` : tags.join(" + ");
+}
+function gauge(pct){
+  return `<div class="gauge" role="img" aria-label="${pct}%"><span data-w="${pct}"></span></div>
+          <div class="gauge-label"><span>0%</span><span>${pct}%</span><span>100%</span></div>`;
+}
+function renderResult(){
+  clearInterval(cycleTimer);
+  const r=$("result");
+  if(!selected.size){ r.innerHTML=`<p class="explain">Pick people above, or tap one of the formulas below.</p>`; return; }
+  if(!selected.has("S")){ r.innerHTML=`<p class="mood-out">Start with you</p><p class="explain">Every formula begins with Sunny. Add yourself first.</p>`; return; }
+  const {key,y} = formulaKey();
+  if(key==="S"){ r.innerHTML=`<p class="mood-out">You</p><p class="explain">You're the starting point. Add S² to see what happens when you're finding yourself.</p>`; return; }
+  const f = data.formulas[key];
+  if(!f){ r.innerHTML=`<p class="mood-out">Not written yet</p><p class="explain">There's no formula for this combination. Maybe that's one for you to decide.</p>`; return; }
+
+  let html = "";
+  const parts = f.mood.split("→").map(s=>s.trim()).filter(Boolean);
+  if(parts.length>1){
+    html += `<p class="mood-out">${esc(parts[0])}</p><p class="explain">This one moves through a cycle:</p>
+      <div class="cycle" id="cycle">${parts.map((p,i)=>`${i?'<span class="arr">→</span>':""}<span class="step ${i===0?"on":""}">${esc(p)}</span>`).join("")}</div>`;
+  } else {
+    html += `<p class="mood-out">${esc(f.mood)}${f.pct!==""&&f.pct!=null?`: ${esc(f.pct)}%`:""}</p>`;
+  }
+  if(key==="S+R+E"){
+    html += `<p class="explain">Together it gets confusing. On their own: S + R is ${esc(data.formulas["S+R"].mood.split("→")[0].trim().toLowerCase())}, and S + E is ${esc(data.formulas["S+E"].mood.toLowerCase())}.</p>`;
+  }
+  if(key==="S+S2"){
+    html += `<p class="explain">You, finding yourself. Adding one more part, Y, makes it complete. Y could be Raviin, Egor, or someone else.</p>`;
+  }
+  if(key==="S+S2+Y"){
+    html += `<p class="explain">You, finding yourself, plus ${esc(nameOf(y))}.</p>`;
+  }
+  if(f.pct!=="" && f.pct!=null && !isNaN(+f.pct)) html += gauge(Math.max(0,Math.min(100,+f.pct)));
+  if(key==="S+S2"){
+    html += `<div class="row" style="margin-top:14px">${["R","E","O"].map(id=>`<button class="btn ghost small" data-y="${id}">Add ${esc(nameOf(id))}</button>`).join("")}</div>`;
+  }
+  r.innerHTML = html;
+  requestAnimationFrame(()=>r.querySelectorAll(".gauge span").forEach(s=>s.style.width=s.dataset.w+"%"));
+  r.querySelectorAll("[data-y]").forEach(b=>b.onclick=()=>{ selected.add(b.dataset.y); renderBuilder(); });
+  const cyc=$("cycle");
+  if(cyc && !matchMedia("(prefers-reduced-motion: reduce)").matches){
+    const steps=cyc.querySelectorAll(".step"); let i=0;
+    cycleTimer=setInterval(()=>{ steps[i].classList.remove("on"); i=(i+1)%steps.length; steps[i].classList.add("on"); },1100);
+  }
+}
+function renderKnown(){
+  $("known").innerHTML = Object.keys(DEFAULT_FORMULAS).map(k=>{
+    const f=data.formulas[k];
+    return `<li><button data-k="${k}">${LABELS[k]} = ${esc(f.mood)}${f.pct!==""&&f.pct!=null?`, ${esc(f.pct)}%`:""}</button></li>`;
+  }).join("");
+  $("known").querySelectorAll("button").forEach(b=>b.onclick=()=>{ selected=new Set(SETS[b.dataset.k]); renderBuilder(); $("people").scrollIntoView({block:"center"}); });
+}
+function renderEditor(){
+  $("edit-formulas").innerHTML = Object.keys(DEFAULT_FORMULAS).map(k=>{
+    const f=data.formulas[k];
+    return `<div class="edit-row">
+      <span class="f">${LABELS[k]} =</span>
+      <input type="text" data-k="${k}" data-field="mood" value="${esc(f.mood)}" aria-label="Result for ${LABELS[k]}">
+      <input type="number" min="0" max="100" data-k="${k}" data-field="pct" value="${esc(f.pct)}" aria-label="Percent for ${LABELS[k]}" placeholder="%">
+    </div>`;
+  }).join("");
+  $("edit-formulas").querySelectorAll("input").forEach(inp=>inp.oninput=()=>{
+    const f=data.formulas[inp.dataset.k];
+    f[inp.dataset.field] = inp.dataset.field==="pct" ? (inp.value===""?"":+inp.value) : inp.value;
+    save(); renderKnown(); renderResult();
+  });
+}
+$("formula-reset").onclick=()=>{ data.formulas=JSON.parse(JSON.stringify(DEFAULT_FORMULAS)); save(); renderEditor(); renderKnown(); renderResult(); toast("Original results restored"); };
+$("eq-clear").onclick=()=>{ selected.clear(); renderBuilder(); };
+function renderBuilder(){ renderPeople(); renderEquation(); renderResult(); }
+
+/* ---------- Agreements ---------- */
+const LEVEL = {0:"Allowed",50:"Partly allowed",100:"Not allowed"};
+let openSuggest = null;
+function renderRules(){
+  ["P","N"].forEach(g=>{
+    $("rules-"+g).innerHTML = RULES.filter(r=>r.g===g).map(r=>`
+      <div class="rule" data-level="${r.level}">
+        <div class="rule-head"><span class="rule-name">${esc(r.name)}</span><span class="rule-status">${LEVEL[r.level]}, ${r.level}%</span></div>
+        ${openSuggest===r.id ? `
+          <div class="suggest stack">
+            <div>
+              <label for="lv-${r.id}">I'd like this to be</label>
+              <select id="lv-${r.id}">${[0,50,100].map(v=>`<option value="${v}" ${v===r.level?"selected":""}>${LEVEL[v]} (${v}%)</option>`).join("")}</select>
+            </div>
+            <div>
+              <label for="nt-${r.id}">Why? (optional)</label>
+              <textarea id="nt-${r.id}" placeholder="Because…"></textarea>
+            </div>
+            <div class="row"><button class="btn small" data-send="${r.id}">Send suggestion</button><button class="btn text" data-cancel>Cancel</button></div>
+          </div>` :
+          `<button class="btn text" data-open="${r.id}" style="margin-top:6px;padding-left:0">Suggest a change</button>`}
+      </div>`).join("");
+  });
+  document.querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>{ openSuggest=b.dataset.open; renderRules(); const s=$("lv-"+openSuggest); if(s) s.focus(); });
+  document.querySelectorAll("[data-cancel]").forEach(b=>b.onclick=()=>{ openSuggest=null; renderRules(); });
+  document.querySelectorAll("[data-send]").forEach(b=>b.onclick=()=>sendSuggestion(b.dataset.send));
+  const c=v=>RULES.filter(r=>r.level===v).length;
+  $("summary").innerHTML = `<div><strong>${c(100)}</strong>not allowed</div><div><strong>${c(50)}</strong>partly allowed</div><div><strong>${c(0)}</strong>allowed</div>`;
+}
+async function sendSuggestion(id){
+  const r=RULES.find(x=>x.id===id);
+  const lv=+$("lv-"+id).value, note=$("nt-"+id).value.trim();
+  const text = `About "${r.name}": right now it's ${LEVEL[r.level].toLowerCase()} (${r.level}%). I'd like it to be ${LEVEL[lv].toLowerCase()} (${lv}%).${note?" "+note:""}`;
+  try{
+    if(navigator.share){ await navigator.share({text}); openSuggest=null; renderRules(); return; }
+  }catch(e){ if(e && e.name==="AbortError") return; }
+  try{ await navigator.clipboard.writeText(text); toast("Suggestion copied. Paste it in a message to me"); }
+  catch(e){ prompt("Copy this and send it to me:", text); }
+  openSuggest=null; renderRules();
+}
+
+/* ---------- Backup ---------- */
+function updateStorageStatus(){
+  $("storage-status").textContent = storageOK
+    ? "Saving is on. Only you can see what you write here, on this device."
+    : "Saving isn't available in this browser right now, so entries will clear when you close the page. Download a backup to keep them.";
+}
+$("b-download").onclick=()=>{
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=`sunny-backup-${today()}.json`;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  toast("Backup downloaded");
+};
+$("b-load").onclick=()=>$("b-file").click();
+$("b-file").onchange=e=>{
+  const file=e.target.files[0]; if(!file) return;
+  const rd=new FileReader();
+  rd.onload=()=>{
+    try{
+      const d=JSON.parse(rd.result);
+      if(typeof d!=="object"||!d) throw 0;
+      data={moods:d.moods||[],things:d.things||[],goals:d.goals||[],learnings:d.learnings||[],journey:d.journey||[],formulas:{...JSON.parse(JSON.stringify(DEFAULT_FORMULAS)),...(d.formulas||{})}};
+      save(); renderAll(); toast("Backup loaded");
+    }catch(err){ toast("That file isn't a backup from this page"); }
+  };
+  rd.readAsText(file); e.target.value="";
+};
+$("b-clear").onclick=()=>{
+  if(!confirm("Delete all your check-ins, notes, goals and moments? This can't be undone unless you have a backup.")) return;
+  data={moods:[],things:[],goals:[],learnings:[],journey:[],formulas:JSON.parse(JSON.stringify(DEFAULT_FORMULAS))};
+  save(); renderAll(); toast("All entries deleted");
+};
+
+/* ---------- Init ---------- */
+function renderAll(){ renderMoodPicker(); renderMoods(); renderThings(); renderGoals(); renderLearnings(); renderJourney(); renderBuilder(); renderKnown(); renderEditor(); renderRules(); updateStorageStatus(); }
+renderAll();
+</script>
+</body>
+</html>
